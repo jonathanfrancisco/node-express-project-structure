@@ -7,18 +7,22 @@ const databaseConnection = require('./database')
 const testRouter = require('./routes/testRouter')
 
 const app = express()
+
 const setupAndStartExpress = async () => {
   await databaseConnection()
   app.use(logger('dev'))
   app.use(bodyParser.json())
+
   // routers here
   app.use('/test', testRouter)
+
   // if none of the routes above matches
   app.use((req, res, next) => {
     next(new httpErrors.NotFound('route not found'))
   })
+
   // catch errors here
-  app.use((err, req, res) => {
+  app.use((err, req, res, next) => {
     console.error(err)
     if (err.status) {
       return res.status(err.status).json({
@@ -31,6 +35,8 @@ const setupAndStartExpress = async () => {
       })
     }
   })
+
+  // start server listening
   app.listen(config.PORT || 3000, () => {
     console.log(`server started listening on ${config.PORT || 3000}`)
   })
