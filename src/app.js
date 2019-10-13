@@ -24,14 +24,18 @@ const setupAndStartExpress = async () => {
   // catch errors here
   app.use((err, req, res, next) => {
     console.error(err)
-    if (err.status) {
-      return res.status(err.status).json({
-        message: err.message
-      })
-    } else {
+    if (!err.status) {
       const isProduction = app.get('env') === 'production'
       return res.status(500).json({
         message: isProduction ? 'internal server error' : err.message
+      })
+    } else if (err.status === 400) {
+      return res.status(err.status).json({
+        errors: err.message
+      })
+    } else {
+      return res.status(err.status).json({
+        message: err.message
       })
     }
   })
