@@ -3,16 +3,17 @@ const httpErrors = require('http-errors')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const databaseConnection = require('./database')
+const testRouter = require('./routes/testRouter')
 require('dotenv').config()
 
 const app = express()
-
 const setupAndStartExpress = async () => {
   await databaseConnection()
   app.use(logger('dev'))
   app.use(bodyParser.json())
 
-  // routes here
+  // routers here
+  app.use('/test', testRouter)
 
   // if none of the routes above matches
   app.use((req, res, next) => {
