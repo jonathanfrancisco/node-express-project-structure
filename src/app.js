@@ -29,20 +29,20 @@ const setupAndStartExpress = async () => {
       return res.status(500).json({
         message: isProduction ? 'internal server error' : err.message
       })
-    } else if (err.status === 400) {
+    }
+    if (err.status === 400) {
       return res.status(err.status).json({
         errors: err.message
       })
-    } else {
-      return res.status(err.status).json({
-        message: err.message
-      })
     }
+    return res.status(err.status).json({
+      message: err.message
+    })
   })
 
   // start server listening
-  app.listen(config.PORT || 3000, () => {
-    console.log(`server started listening on ${config.PORT || 3000}`)
+  app.listen(config.PORT || 5000, () => {
+    console.log(`server started listening on ${config.PORT || 5000}`)
   })
 }
 
