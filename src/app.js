@@ -4,24 +4,22 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const config = require('./config')
 const databaseConnection = require('./database')
-const testRouter = require('./routes/testRouter')
+
+const todoAPI = require('./components/todo/api')
 
 const app = express()
 
 const setupAndStartExpress = async () => {
   await databaseConnection()
+
   app.use(logger('dev'))
   app.use(bodyParser.json())
 
-  // routers here
-  app.use('/test', testRouter)
+  app.use(todoAPI)
 
-  // if none of the routes above matches
   app.use((req, res, next) => {
     next(new httpErrors.NotFound('route not found'))
   })
-
-  // catch errors here
   app.use((err, req, res, next) => {
     console.error(err)
     if (!err.status) {
@@ -32,15 +30,18 @@ const setupAndStartExpress = async () => {
     }
     if (err.status === 400) {
       return res.status(err.status).json({
-        errors: err.message
+        error: {
+          data: err.message
+        }
       })
     }
     return res.status(err.status).json({
-      message: err.message
+      error: {
+        description: err.message
+      }
     })
   })
 
-  // start server listening
   app.listen(config.PORT || 5000, () => {
     console.log(`server started listening on ${config.PORT || 5000}`)
   })
