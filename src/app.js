@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const config = require('./config')
 const databaseConnection = require('./database')
 
-const todoAPI = require('./components/todo/api')
+const todosAPI = require('./components/todos/api')
 
 const app = express()
 
@@ -15,7 +15,7 @@ const setupAndStartExpress = async () => {
   app.use(logger('dev'))
   app.use(bodyParser.json())
 
-  app.use(todoAPI)
+  app.use(todosAPI)
 
   app.use((req, res, next) => {
     next(new httpErrors.NotFound('route not found'))

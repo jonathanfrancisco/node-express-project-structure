@@ -1,6 +1,6 @@
-const todoService = {}
+const todosService = {}
 
-todoService.getTodos = async () => {
+todosService.getTodos = async () => {
   const todos = [
     {
       body: 'Hello World',
@@ -30,4 +30,4 @@ todoService.getTodos = async () => {
   return todos
 }
 
-module.exports = Object.freeze(todoService)
+module.exports = Object.freeze(todosService)
