@@ -1,9 +1,10 @@
 {
-  "name": "node-express-architecture",
+  "name": "express-node-vanillajs-structure",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.7",

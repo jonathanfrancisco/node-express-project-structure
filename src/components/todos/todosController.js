@@ -1,21 +1,22 @@
 const httpErrors = require('http-errors')
-const todosRequestValidator = require('./todosRequestValidator')
+const validate = require('../../utils/joiValidator')
+const schema = require('./todosRequestSchema')
 const todosService = require('./todosService')
 
 const todosController = {}
 
 todosController.getTodos = async (req, res) => {
-  const { error, value: data } = todosRequestValidator.getTodos({
-    searchQuery: req.query.searchQuery
-  })
-  if (error) {
-    throw httpErrors.BadRequest(error.details)
-  }
+  const { error, value: validRequest } = validate(req, schema.getTodos)
+  if (error) throw httpErrors.BadRequest(error.details)
+
+  const { searchQuery } = validRequest
 
   const todos = await todosService.getTodos({
-    searchQuery: data.searchQuery
+    searchQuery
   })
-  return res.send(todos)
+  return res.send({
+    todos
+  })
 }
 
 module.exports = Object.freeze(todosController)

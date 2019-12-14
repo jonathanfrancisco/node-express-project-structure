@@ -1,6 +1,6 @@
 const todosService = {}
 
-todosService.getTodos = async () => {
+todosService.getTodos = async ({ searchQuery }) => {
   const todos = [
     {
       body: 'Hello World',
