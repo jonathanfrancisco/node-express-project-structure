@@ -1,5 +1,5 @@
-module.exports = (request, joiSchema) => {
-  return joiSchema.validate(
+module.exports = (request, joiSchema) =>
+  joiSchema.validate(
     {
       body: request.body,
       query: request.query,
@@ -12,4 +12,3 @@ module.exports = (request, joiSchema) => {
       }
     }
   )
-}
