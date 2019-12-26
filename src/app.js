@@ -2,8 +2,7 @@ const express = require('express')
 const httpErrors = require('http-errors')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
-const config = require('./config')
-const databaseConnection = require('./database')
+const config = require('../config')
 const expressErrorHandler = require('./expressErrorHandler')
 
 const todosAPI = require('./components/todos')
@@ -11,8 +10,6 @@ const todosAPI = require('./components/todos')
 const app = express()
 
 const setupAndStartExpress = async () => {
-  // await databaseConnection()
-
   app.use(logger('dev'))
   app.use(bodyParser.json())
 
