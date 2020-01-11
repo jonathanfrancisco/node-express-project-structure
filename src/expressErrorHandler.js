@@ -1,23 +1,30 @@
 module.exports = environment => {
   return (err, req, res, next) => {
     console.error(err)
-    if (!err.status) {
-      const isProduction = environment === 'production'
-      return res.status(500).json({
-        description: isProduction ? 'internal server error' : err.message
-      })
-    }
-    if (err.status === 400) {
-      return res.status(err.status).json({
-        error: {
-          attributes: err.message
+
+    const getErrorFormat = (errMessage, errStatus) => {
+      if (
+        Array.isArray(errMessage) ||
+        (typeof errMessage === 'object' && errMessage !== null)
+      ) {
+        return {
+          error: {
+            details: errMessage
+          }
         }
-      })
-    }
-    return res.status(err.status).json({
-      error: {
-        description: err.message
       }
-    })
+      return {
+        error: {
+          message:
+            (!err.status || err.status === 500) && environment === 'production'
+              ? 'Internal Server Error'
+              : errMessage
+        }
+      }
+    }
+
+    return res
+      .status(err.status || 500)
+      .json(getErrorFormat(err.message, err.status))
   }
 }

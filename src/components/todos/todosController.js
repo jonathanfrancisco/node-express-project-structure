@@ -21,7 +21,7 @@ todosController.getTodoById = async (req, res) => {
   const { error, value: validRequest } = validate(req, schema.getTodos)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { id } = req.params
+  const { id } = validRequest.params
 
   const todo = await todosService.getTodoById({ id })
   res.send(todo)
@@ -49,7 +49,7 @@ todosController.deleteTodoById = async (req, res) => {
   const { error, value: validRequest } = validate(req, schema.deleteTodoById)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { id } = req.params
+  const { id } = validRequest.params
 
   const todo = await todosService.deleteTodoById({ id })
   res.send(todo)
