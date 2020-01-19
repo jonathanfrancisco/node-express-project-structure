@@ -1,52 +1,54 @@
 const httpErrors = require('http-errors')
 const Todo = require('../../models/Todo')
 
-const todosService = {}
+module.exports = () => {
+  const todosService = {}
 
-todosService.getTodos = async ({ searchQuery }) => {
-  const todos = await Todo.query()
-  return { todos }
-}
-
-todosService.createTodo = async ({ body }) => {
-  const newTodo = await Todo.query().insert({
-    body
-  })
-
-  return {
-    todo: newTodo
+  todosService.getTodos = async ({ searchQuery }) => {
+    const todos = await Todo.query()
+    return { todos }
   }
-}
 
-todosService.getTodoById = async ({ id }) => {
-  const todo = await Todo.query().findById(id)
-  if (!todo) throw httpErrors.NotFound()
+  todosService.createTodo = async ({ body }) => {
+    const newTodo = await Todo.query().insert({
+      body
+    })
 
-  return {
-    todo
+    return {
+      todo: newTodo
+    }
   }
-}
 
-todosService.deleteTodos = async () => {
-  const deletedTodos = await Todo.query()
-    .delete()
-    .returning('*')
+  todosService.getTodoById = async ({ id }) => {
+    const todo = await Todo.query().findById(id)
+    if (!todo) throw httpErrors.NotFound()
 
-  return {
-    todos: deletedTodos,
-    rowsDeleted: deletedTodos.length
+    return {
+      todo
+    }
   }
-}
 
-todosService.deleteTodoById = async ({ id }) => {
-  const deletedTodo = await Todo.query()
-    .deleteById(id)
-    .returning('*')
-  if (!deletedTodo) throw httpErrors.NotFound()
+  todosService.deleteTodos = async () => {
+    const deletedTodos = await Todo.query()
+      .delete()
+      .returning('*')
 
-  return {
-    todo: deletedTodo
+    return {
+      todos: deletedTodos,
+      rowsDeleted: deletedTodos.length
+    }
   }
-}
 
-module.exports = Object.freeze(todosService)
+  todosService.deleteTodoById = async ({ id }) => {
+    const deletedTodo = await Todo.query()
+      .deleteById(id)
+      .returning('*')
+    if (!deletedTodo) throw httpErrors.NotFound()
+
+    return {
+      todo: deletedTodo
+    }
+  }
+
+  return Object.freeze(todosService)
+}
