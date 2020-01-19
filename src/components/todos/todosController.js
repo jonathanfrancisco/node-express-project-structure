@@ -1,15 +1,15 @@
 const httpErrors = require('http-errors')
-const validate = require('../../utils/joiValidator')
 const schema = require('./todosRequestSchema')
+const validate = require('../../utils/joiValidator')
 const todosService = require('./todosService')
 
 const todosController = {}
 
 todosController.getTodos = async (req, res) => {
-  const { error, value: validRequest } = validate(req, schema.getTodos)
+  const { error, value: validatedRequest } = validate(req, schema.getTodos)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { searchQuery } = validRequest.query
+  const { searchQuery } = validatedRequest.query
 
   const todos = await todosService.getTodos({
     searchQuery
@@ -18,27 +18,27 @@ todosController.getTodos = async (req, res) => {
 }
 
 todosController.getTodoById = async (req, res) => {
-  const { error, value: validRequest } = validate(req, schema.getTodos)
+  const { error, value: validatedRequest } = validate(req, schema.getTodos)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { id } = validRequest.params
+  const { id } = validatedRequest.params
 
   const todo = await todosService.getTodoById({ id })
   res.send(todo)
 }
 
 todosController.createTodo = async (req, res) => {
-  const { error, value: validRequest } = validate(req, schema.createTodo)
+  const { error, value: validatedRequest } = validate(req, schema.createTodo)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { body } = validRequest.body
+  const { body } = validatedRequest.body
 
   const todo = await todosService.createTodo({ body })
   res.send(todo)
 }
 
 todosController.deleteTodos = async (req, res) => {
-  const { error, value: validRequest } = validate(req, schema.deleteTodos)
+  const { error, value: validatedRequest } = validate(req, schema.deleteTodos)
   if (error) throw httpErrors.BadRequest(error.details)
 
   const todos = await todosService.deleteTodos()
@@ -46,10 +46,13 @@ todosController.deleteTodos = async (req, res) => {
 }
 
 todosController.deleteTodoById = async (req, res) => {
-  const { error, value: validRequest } = validate(req, schema.deleteTodoById)
+  const { error, value: validatedRequest } = validate(
+    req,
+    schema.deleteTodoById
+  )
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { id } = validRequest.params
+  const { id } = validatedRequest.params
 
   const todo = await todosService.deleteTodoById({ id })
   res.send(todo)

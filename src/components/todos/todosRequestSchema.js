@@ -16,7 +16,17 @@ todosRequestSchema.getTodoById = Joi.object({
 
 todosRequestSchema.createTodo = Joi.object({
   body: {
-    body: Joi.string().required()
+    body: Joi.string()
+      .min(4)
+      .max(100)
+      .required()
+      .messages({
+        'string.base': 'Body should be a type of text',
+        'string.min': 'Body minimum length should be 5 characters',
+        'string.max': 'Body max length is up to 100 characters only',
+        'string.empty': 'Body cannot be empty',
+        'any.required': 'Body cannot be empty'
+      })
   },
   query: {},
   params: {}
