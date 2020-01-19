@@ -18,7 +18,7 @@ const setupAndStartExpress = async () => {
   app.use((req, res, next) => {
     next(new httpErrors.NotFound('route not found'))
   })
-  app.use(expressErrorHandler('development'))
+  app.use(expressErrorHandler(config.NODE_ENV))
 
   app.listen(config.PORT || 5000, () => {
     console.log(`server started listening on ${config.PORT || 5000}`)
