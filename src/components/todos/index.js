@@ -1,10 +1,6 @@
 const todoRouter = require('express').Router()
 const catchErrors = require('../../hoc/catchErrors')
-
-const todosService = require('./todosService')()
-const todosController = require('./todosController')({
-  todosService
-})
+const todosController = require('./todosController')
 
 todoRouter.get('/todos', catchErrors(todosController.getTodos))
 todoRouter.get('/todos/:id', catchErrors(todosController.getTodoById))
