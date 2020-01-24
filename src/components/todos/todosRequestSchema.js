@@ -11,7 +11,13 @@ todosRequestSchema.getTodos = Joi.object({
 todosRequestSchema.getTodoById = Joi.object({
   body: {},
   query: {},
-  params: {}
+  params: {
+    id: Joi.string()
+      .guid()
+      .messages({
+        'string.guid': 'Must be a valid ID'
+      })
+  }
 })
 
 todosRequestSchema.createTodo = Joi.object({
@@ -41,7 +47,11 @@ todosRequestSchema.deleteTodos = Joi.object({
 todosRequestSchema.deleteTodoById = Joi.object({
   body: {},
   query: {},
-  paams: {}
+  params: {
+    id: Joi.string()
+      .guid()
+      .messages({ 'string.guid': 'Must be a valid ID' })
+  }
 })
 
 module.exports = Object.freeze(todosRequestSchema)

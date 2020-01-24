@@ -20,7 +20,7 @@ todosService.createTodo = async ({ body }) => {
 
 todosService.getTodoById = async ({ id }) => {
   const todo = await Todo.query().findById(id)
-  if (!todo) throw httpErrors.NotFound()
+  if (!todo) throw httpErrors.NotFound('Todo not found')
 
   return {
     todo
@@ -42,7 +42,7 @@ todosService.deleteTodoById = async ({ id }) => {
   const deletedTodo = await Todo.query()
     .deleteById(id)
     .returning('*')
-  if (!deletedTodo) throw httpErrors.NotFound()
+  if (!deletedTodo) throw httpErrors.NotFound('Todo not found')
 
   return {
     todo: deletedTodo

@@ -18,7 +18,7 @@ todosController.getTodos = async (req, res) => {
 }
 
 todosController.getTodoById = async (req, res) => {
-  const { error, value: validatedRequest } = validator(req, schema.getTodos)
+  const { error, value: validatedRequest } = validator(req, schema.getTodoById)
   if (error) throw httpErrors.BadRequest(error.details)
 
   const { id } = validatedRequest.params
