@@ -3,22 +3,23 @@ const Todo = require('../../models/Todo')
 
 const todosService = {}
 
-todosService.getTodos = async ({ searchQuery }) => {
+todosService.getTodos = async searchQuery => {
   const todos = await Todo.query()
   return { todos }
 }
 
-todosService.createTodo = async ({ body }) => {
-  const newTodo = await Todo.query().insert({
-    body
+todosService.createTodo = async todoInfo => {
+  const todo = await Todo.query().insert({
+    ...todoInfo,
+    isDone: false
   })
 
   return {
-    todo: newTodo
+    todo
   }
 }
 
-todosService.getTodoById = async ({ id }) => {
+todosService.getTodoById = async id => {
   const todo = await Todo.query().findById(id)
   if (!todo) throw httpErrors.NotFound('Todo not found')
 
@@ -33,12 +34,11 @@ todosService.deleteTodos = async () => {
     .returning('*')
 
   return {
-    todos: deletedTodos,
-    rowsDeleted: deletedTodos.length
+    todosDeleted: deletedTodos.length
   }
 }
 
-todosService.deleteTodoById = async ({ id }) => {
+todosService.deleteTodoById = async id => {
   const deletedTodo = await Todo.query()
     .deleteById(id)
     .returning('*')
@@ -49,4 +49,4 @@ todosService.deleteTodoById = async ({ id }) => {
   }
 }
 
-module.exports = Object.freeze(todosService)
+module.exports = todosService

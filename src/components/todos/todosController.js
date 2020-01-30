@@ -10,31 +10,29 @@ todosController.getTodos = async (req, res) => {
   if (error) throw httpErrors.BadRequest(error.details)
 
   const { searchQuery } = validatedRequest.query
-  const todos = await todosService.getTodos({
-    searchQuery
-  })
+  const todos = await todosService.getTodos(searchQuery)
 
-  res.send(todos)
+  res.status(200).send(todos)
 }
 
 todosController.getTodoById = async (req, res) => {
   const { error, value: validatedRequest } = validator(req, schema.getTodoById)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { id } = validatedRequest.params
-  const todo = await todosService.getTodoById({ id })
+  const { id } = req.params
+  const todo = await todosService.getTodoById(id)
 
-  res.send(todo)
+  res.status(200).send(todo)
 }
 
 todosController.createTodo = async (req, res) => {
   const { error, value: validatedRequest } = validator(req, schema.createTodo)
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { body } = validatedRequest.body
-  const todo = await todosService.createTodo({ body })
+  const todoInfo = validatedRequest.body
+  const todo = await todosService.createTodo(todoInfo)
 
-  res.send(todo)
+  res.status(201).send(todo)
 }
 
 todosController.deleteTodos = async (req, res) => {
@@ -42,7 +40,7 @@ todosController.deleteTodos = async (req, res) => {
   if (error) throw httpErrors.BadRequest(error.details)
 
   const todos = await todosService.deleteTodos()
-  res.send(todos)
+  res.status(200).send(todos)
 }
 
 todosController.deleteTodoById = async (req, res) => {
@@ -52,9 +50,10 @@ todosController.deleteTodoById = async (req, res) => {
   )
   if (error) throw httpErrors.BadRequest(error.details)
 
-  const { id } = validatedRequest.params
-  const todo = await todosService.deleteTodoById({ id })
-  res.send(todo)
+  const { id } = req.params
+  const todo = await todosService.deleteTodoById(id)
+
+  res.status(200).send(todo)
 }
 
-module.exports = Object.freeze(todosController)
+module.exports = todosController

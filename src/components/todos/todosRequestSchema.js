@@ -4,20 +4,12 @@ const todosRequestSchema = {}
 
 todosRequestSchema.getTodos = Joi.object({
   body: {},
-  query: {},
-  params: {}
+  query: {}
 })
 
 todosRequestSchema.getTodoById = Joi.object({
   body: {},
-  query: {},
-  params: {
-    id: Joi.string()
-      .guid()
-      .messages({
-        'string.guid': 'Must be a valid ID'
-      })
-  }
+  query: {}
 })
 
 todosRequestSchema.createTodo = Joi.object({
@@ -26,32 +18,18 @@ todosRequestSchema.createTodo = Joi.object({
       .min(4)
       .max(100)
       .required()
-      .messages({
-        'string.base': 'Body should be a type of text',
-        'string.min': 'Body minimum length should be 5 characters',
-        'string.max': 'Body max length is up to 100 characters only',
-        'string.empty': 'Body cannot be empty',
-        'any.required': 'Body cannot be empty'
-      })
   },
-  query: {},
-  params: {}
+  query: {}
 })
 
 todosRequestSchema.deleteTodos = Joi.object({
   body: {},
-  query: {},
-  params: {}
+  query: {}
 })
 
 todosRequestSchema.deleteTodoById = Joi.object({
   body: {},
-  query: {},
-  params: {
-    id: Joi.string()
-      .guid()
-      .messages({ 'string.guid': 'Must be a valid ID' })
-  }
+  query: {}
 })
 
-module.exports = Object.freeze(todosRequestSchema)
+module.exports = todosRequestSchema
