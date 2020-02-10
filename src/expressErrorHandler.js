@@ -2,7 +2,7 @@ module.exports = environment => {
   return (err, req, res, next) => {
     console.error(err)
 
-    const getErrorFormat = (errMessage, errStatus) => {
+    const formatErrorMessage = (errMessage, errStatus) => {
       if (
         Array.isArray(errMessage) ||
         (typeof errMessage === 'object' && errMessage !== null)
@@ -25,6 +25,6 @@ module.exports = environment => {
 
     return res
       .status(err.status || 500)
-      .json(getErrorFormat(err.message, err.status))
+      .json(formatErrorMessage(err.message, err.status))
   }
 }
