@@ -4,6 +4,7 @@ const Todo = require('../../models/Todo')
 const todosService = {}
 
 todosService.getTodos = async searchQuery => {
+  // searchQuery was never used here thooo
   const todos = await Todo.query()
   return { todos }
 }
