@@ -6,6 +6,7 @@ const compression = require('compression')
 const httpErrors = require('http-errors')
 
 const config = require('./config')
+const databaseConnection = require('./database')
 const expressErrorHandler = require('./expressErrorHandler')
 const apiRoutes = require('./components')
 
@@ -13,6 +14,7 @@ const app = express()
 
 const setupAndStartExpress = async () => {
   // initial middlewares
+  await databaseConnection()
   app.use(helmet())
   app.use(cors())
   app.use(bodyParser.json())
