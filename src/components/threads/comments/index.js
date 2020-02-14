@@ -11,4 +11,9 @@ commentsRouter.delete(
   catchErrors(commentsController.deleteComment)
 )
 
+commentsRouter.put(
+  '/threads/:id/comment/:commentId',
+  catchErrors(commentsController.updateComment)
+)
+
 module.exports = commentsRouter

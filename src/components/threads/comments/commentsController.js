@@ -21,6 +21,28 @@ commentController.createComment = async (req, res) => {
   res.status(200).send(comment)
 }
 
+commentController.updateComment = async (req, res) => {
+  const { id, commentId } = req.params
+
+  if (!ObjectId.isValid(id) && !ObjectId.isValid(commentId))
+    throw httpErrors.NotFound('Id not valid')
+
+  const { error, value: validatedRequestBody } = validators(
+    req.body,
+    schema.updateComment
+  )
+  if (error) throw httpErrors.BadRequest(error.details)
+
+  const commentDetails = validatedRequestBody
+  const comment = await commentsService.updateComment(
+    id,
+    commentId,
+    commentDetails
+  )
+
+  res.status(200).send(comment)
+}
+
 commentController.deleteComment = async (req, res) => {
   const { id, commentId } = req.params
 

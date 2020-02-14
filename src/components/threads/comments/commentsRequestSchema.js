@@ -7,4 +7,8 @@ commentRequestSchema.createComment = Joi.object({
   author: Joi.string().required()
 })
 
+commentRequestSchema.updateComment = Joi.object({
+  comment: Joi.string().required()
+})
+
 module.exports = commentRequestSchema
