@@ -22,15 +22,14 @@ commentsService.deleteComment = async ids => {
   const thread = await Thread.findById(ids.id)
 
   if (!thread) throw httpErrors.NotFound('Thread id not found')
-  const commentsList = thread.comments
 
-  let commentId = false
-  await commentsList.map(comment => {
+  const commentId = await thread.comments.map(comment => {
     if (comment._id == ids.commentId) {
-      commentId = true
+      return true
     }
+    return false
   })
-  if (commentId == false) throw httpErrors.NotFound('Comment id not found')
+  if (!commentId[0]) throw httpErrors.NotFound('Comment id not found')
 
   await thread.comments.id(ids.commentId).remove()
   await thread.save()
