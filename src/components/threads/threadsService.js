@@ -11,13 +11,17 @@ threadsService.createThread = async threadDetails => {
   })
   const thread = await Thread.create(threadInfos)
   await thread.save()
-  return thread
+  return {
+    thread
+  }
 }
 
 threadsService.getThreads = async () => {
-  const threads = Thread.find({}).populate('author')
+  const threads = await Thread.find({}).populate('author')
 
-  return threads
+  return {
+    threads
+  }
 }
 
 threadsService.getThreadById = async id => {
@@ -26,7 +30,9 @@ threadsService.getThreadById = async id => {
     .populate('comments.author')
   if (!thread) throw httpErrors.NotFound()
 
-  return thread
+  return {
+    thread
+  }
 }
 
 threadsService.updateThread = async (id, threadDetails) => {
@@ -39,7 +45,9 @@ threadsService.updateThread = async (id, threadDetails) => {
     { new: true }
   )
 
-  return update
+  return {
+    update
+  }
 }
 
 threadsService.deleteThread = async id => {
@@ -48,7 +56,9 @@ threadsService.deleteThread = async id => {
 
   await thread.remove()
 
-  return thread
+  return {
+    thread
+  }
 }
 
 module.exports = threadsService

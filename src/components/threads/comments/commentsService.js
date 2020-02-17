@@ -15,7 +15,9 @@ commentsService.createComment = async (id, commentDetails) => {
     .populate('author')
     .populate('comments.author')
 
-  return thread
+  return {
+    thread
+  }
 }
 
 commentsService.updateComment = async (id, commentId, commentDetails) => {
@@ -33,7 +35,9 @@ commentsService.updateComment = async (id, commentId, commentDetails) => {
   thread.comments.id(commentId).comment = commentDetails.comment
   await thread.save()
 
-  return thread
+  return {
+    thread
+  }
 }
 
 commentsService.deleteComment = async ids => {
@@ -54,7 +58,9 @@ commentsService.deleteComment = async ids => {
   await thread.comments.id(commentId).remove()
   await thread.save()
 
-  return thread
+  return {
+    thread
+  }
 }
 
 module.exports = commentsService
