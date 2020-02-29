@@ -7,7 +7,7 @@ const httpErrors = require('http-errors')
 
 const config = require('./config')
 const expressErrorHandler = require('./expressErrorHandler')
-const apiRoutes = require('./components')
+const apiRoutes = require('./api/rest')
 
 const app = express()
 
