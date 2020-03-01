@@ -4,5 +4,5 @@ module.exports = (payload, joiSchema) => {
     errors: {
       label: 'key'
     }
-  })
-}
+  });
+};

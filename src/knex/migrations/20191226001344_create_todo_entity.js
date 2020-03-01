@@ -3,17 +3,17 @@ exports.up = knex => {
     table
       .uuid('id')
       .notNullable()
-      .primary()
-    table.string('body').notNullable()
+      .primary();
+    table.string('body').notNullable();
     table
       .boolean('isDone')
       .nullable()
-      .defaultTo(false)
-    table.timestamp('createdAt').defaultTo(knex.fn.now())
-    table.timestamp('updatedAt')
-  })
-}
+      .defaultTo(false);
+    table.timestamp('createdAt').defaultTo(knex.fn.now());
+    table.timestamp('updatedAt');
+  });
+};
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('todos')
-}
+  return knex.schema.dropTableIfExists('todos');
+};

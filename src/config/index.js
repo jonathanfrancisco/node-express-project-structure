@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports = {
   nodeEnv: process.env.NODE_ENV,
@@ -10,4 +10,4 @@ module.exports = {
     password: process.env.DATABASE_PASSWORD,
     name: process.env.DATABASE_NAME
   }
-}
+};
