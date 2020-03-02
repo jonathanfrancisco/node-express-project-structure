@@ -1,4 +1,5 @@
 const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
 const helmet = require('helmet');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -9,7 +10,10 @@ const config = require('./config');
 const expressErrorHandler = require('./expressErrorHandler');
 const apiRoutes = require('./api/rest');
 
+const { typeDefs, resolvers } = require('./api/graphql');
+
 const app = express();
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
 const setupAndStartExpress = async () => {
   // initial middlewares
@@ -18,6 +22,7 @@ const setupAndStartExpress = async () => {
   app.use(bodyParser.json());
   app.use(compression());
 
+  apolloServer.applyMiddleware({ app });
   app.use(apiRoutes);
   app.use((req, res, next) => {
     next(new httpErrors.NotFound('route not found'));

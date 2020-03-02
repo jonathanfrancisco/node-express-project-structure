@@ -1,5 +1,5 @@
 const httpErrors = require('http-errors');
-const Todo = require('../../models/Todo');
+const Todo = require('../../shared/models/Todo');
 
 const todosService = {};
 
