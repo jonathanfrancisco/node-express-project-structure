@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const httpErrors = require('http-errors');
 
+const databaseConnection = require('./database');
 const config = require('./config');
 const expressErrorHandler = require('./expressErrorHandler');
 const apiRoutes = require('./api/rest');
@@ -16,6 +17,8 @@ const app = express();
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
 const setupAndStartExpress = async () => {
+  await databaseConnection();
+
   // initial middlewares
   app.use(helmet());
   app.use(cors());

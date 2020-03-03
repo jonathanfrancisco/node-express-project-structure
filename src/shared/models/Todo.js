@@ -1,23 +1,17 @@
-const uuidv4 = require('uuid/v4');
-const BaseModel = require('./BaseModel');
+const mongoose = require('mongoose');
 
-class Todo extends BaseModel {
-  static get tableName() {
-    return 'todos';
+const { Schema } = mongoose;
+
+const TodoSchema = new Schema(
+  {
+    body: {
+      type: String,
+      required: true
+    }
+  },
+  {
+    timestamps: true
   }
+);
 
-  static get idColumn() {
-    return 'id';
-  }
-
-  async $beforeInsert() {
-    this.id = uuidv4();
-    this.createdAt = new Date().toISOString();
-  }
-
-  async $beforeUpdate() {
-    this.updatedAt = new Date().toISOString();
-  }
-}
-
-module.exports = Todo;
+module.exports = mongoose.model('Todo', TodoSchema);

@@ -5,15 +5,12 @@ const todosService = {};
 
 todosService.getTodos = async searchQuery => {
   // searchQuery was never used here thooo
-  const todos = await Todo.query();
+  const todos = await Todo.find({});
   return { todos };
 };
 
 todosService.createTodo = async todoInfo => {
-  const todo = await Todo.query().insert({
-    ...todoInfo,
-    isDone: false
-  });
+  const todo = await Todo.create(todoInfo);
 
   return {
     todo
@@ -21,7 +18,9 @@ todosService.createTodo = async todoInfo => {
 };
 
 todosService.getTodoById = async id => {
-  const todo = await Todo.query().findById(id);
+  const todo = await Todo.findOne({
+    _id: id
+  });
   if (!todo) throw httpErrors.NotFound('Todo not found');
 
   return {
@@ -30,23 +29,21 @@ todosService.getTodoById = async id => {
 };
 
 todosService.deleteTodos = async () => {
-  const deletedTodos = await Todo.query()
-    .delete()
-    .returning('*');
+  const result = await Todo.deleteMany({});
 
   return {
-    todosDeleted: deletedTodos.length
+    todosDeleted: result.deletedCount
   };
 };
 
 todosService.deleteTodoById = async id => {
-  const deletedTodo = await Todo.query()
-    .deleteById(id)
-    .returning('*');
-  if (!deletedTodo) throw httpErrors.NotFound('Todo not found');
+  const todo = await Todo.findOne({ _id: id });
+  if (!todo) throw httpErrors.NotFound('Todo not found');
+
+  await todo.remove();
 
   return {
-    todo: deletedTodo
+    todo
   };
 };
 
