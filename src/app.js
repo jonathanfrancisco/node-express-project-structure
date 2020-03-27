@@ -4,7 +4,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
 
-const databaseConnection = require('./database');
 const config = require('./config');
 
 const { typeDefs, resolvers } = require('./api/graphql');
@@ -36,8 +35,6 @@ const apolloServer = new ApolloServer({
 });
 
 const setupAndStartExpress = async () => {
-  await databaseConnection();
-
   const corsConfig = {
     // uncomment if using express-session and cookies
     // install expres-session and cookie parseralso
