@@ -1,12 +1,7 @@
-const todosController = require('./todosController');
-const { todosTypeDefs, todosResolvers } = require('./todosGraphQL');
-const todosRequestSchema = require('./todosRequestSchema');
-const todosService = require('./todosService');
+const todosTypeDefs = require('../todos/todosTypeDefs');
+const todosResolvers = require('../todos/todosResolvers');
 
 module.exports = {
-  todosController,
   todosTypeDefs,
-  todosResolvers,
-  todosRequestSchema,
-  todosService
+  todosResolvers
 };
