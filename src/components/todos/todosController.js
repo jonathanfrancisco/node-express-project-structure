@@ -1,54 +1,35 @@
-const httpErrors = require('http-errors')
-const validator = require('../../utils/joiValidator')
-const schema = require('./todosRequestSchema')
-const todosService = require('./todosService')
+const httpErrors = require('http-errors');
+const todosRequestSchema = require('./todosRequestSchema');
+const joiValidator = require('../../utils/joiValidator');
+const todosService = require('./todosService');
 
-const todosController = {}
+const todosController = {};
 
-todosController.getTodos = async (req, res) => {
-  const { error, value: validatedRequestQuery } = validator(
-    req.query,
-    schema.getTodos
-  )
-  if (error) throw httpErrors.BadRequest(error.details)
+todosController.addTodo = async (req, res) => {
+  const { error, value: validatedRequestBody } = joiValidator(
+    req.body,
+    todosRequestSchema.addTodo
+  );
+  if (error) {
+    throw httpErrors.BadRequest(error.details);
+  }
 
-  const { searchQuery } = validatedRequestQuery
-  const todos = await todosService.getTodos(searchQuery)
+  const todo = validatedRequestBody;
 
-  res.status(200).send(todos)
-}
+  res.status(201).send(await todosService.addTodo(todo));
+};
 
 todosController.getTodoById = async (req, res) => {
-  const { id } = req.params
-  const todo = await todosService.getTodoById(id)
+  const { id } = req.params;
+  const todo = await todosService.getTodoById(id);
 
-  res.status(200).send(todo)
-}
+  res.status(200).send(todo);
+};
 
-todosController.createTodo = async (req, res) => {
-  const { error, value: validatedRequestBody } = validator(
-    req.body,
-    schema.createTodo
-  )
-  if (error) throw httpErrors.BadRequest(error.details)
+todosController.getTodos = async (req, res) => {
+  const todos = await todosService.getTodos();
 
-  const todoInfo = validatedRequestBody
-  const todo = await todosService.createTodo(todoInfo)
+  res.status(200).send(todos);
+};
 
-  res.status(201).send(todo)
-}
-
-todosController.deleteTodos = async (req, res) => {
-  const todos = await todosService.deleteTodos()
-
-  res.status(200).send(todos)
-}
-
-todosController.deleteTodoById = async (req, res) => {
-  const { id } = req.params
-  const todo = await todosService.deleteTodoById(id)
-
-  res.status(200).send(todo)
-}
-
-module.exports = todosController
+module.exports = todosController;

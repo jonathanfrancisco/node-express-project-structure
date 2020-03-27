@@ -1,5 +1,5 @@
-const path = require('path')
-const config = require('./src/config')
+const path = require('path');
+const config = require('./src/config');
 
 module.exports = {
   development: {
@@ -33,4 +33,4 @@ module.exports = {
   //     directory: path.join(__dirname, '/knex/seeds')
   //   }
   // }
-}
+};

@@ -1,53 +1,34 @@
-const httpErrors = require('http-errors')
-const Todo = require('../../models/Todo')
+const httpErrors = require('http-errors');
 
-const todosService = {}
+const Todo = require('../../models/Todo');
 
-todosService.getTodos = async searchQuery => {
-  // searchQuery was never used here thooo
-  const todos = await Todo.query()
-  return { todos }
-}
+const todosService = {};
 
-todosService.createTodo = async todoInfo => {
+todosService.addTodo = async todoInfo => {
   const todo = await Todo.query().insert({
     ...todoInfo,
     isDone: false
-  })
+  });
 
   return {
     todo
-  }
-}
+  };
+};
 
 todosService.getTodoById = async id => {
-  const todo = await Todo.query().findById(id)
-  if (!todo) throw httpErrors.NotFound('Todo not found')
+  const todo = await Todo.query().findById(id);
+  if (!todo) {
+    throw httpErrors.NotFound('Todo not found');
+  }
 
   return {
     todo
-  }
-}
+  };
+};
 
-todosService.deleteTodos = async () => {
-  const deletedTodos = await Todo.query()
-    .delete()
-    .returning('*')
+todosService.getTodos = async () => {
+  const todos = await Todo.query();
+  return { todos };
+};
 
-  return {
-    todosDeleted: deletedTodos.length
-  }
-}
-
-todosService.deleteTodoById = async id => {
-  const deletedTodo = await Todo.query()
-    .deleteById(id)
-    .returning('*')
-  if (!deletedTodo) throw httpErrors.NotFound('Todo not found')
-
-  return {
-    todo: deletedTodo
-  }
-}
-
-module.exports = todosService
+module.exports = todosService;

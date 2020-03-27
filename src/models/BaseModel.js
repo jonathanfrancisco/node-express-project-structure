@@ -1,8 +1,8 @@
-const { Model } = require('objection')
-const knex = require('../knex')
+const { Model } = require('objection');
+const knex = require('../knex');
 
-Model.knex(knex)
+Model.knex(knex);
 
 class BaseModel extends Model {}
 
-module.exports = BaseModel
+module.exports = BaseModel;

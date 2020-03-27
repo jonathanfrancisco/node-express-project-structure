@@ -1,7 +1,5 @@
-const apiRoutes = require('express').Router()
+const apiRoutes = require('express').Router();
 
-apiRoutes.use(require('./todos'))
-apiRoutes.use(require('./threads'))
-apiRoutes.use(require('./threads/comments'))
+apiRoutes.use(require('./todos'));
 
-module.exports = apiRoutes
+module.exports = apiRoutes;

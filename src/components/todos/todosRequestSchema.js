@@ -1,16 +1,12 @@
-const Joi = require('@hapi/joi')
+const Joi = require('@hapi/joi');
 
-const todosRequestSchema = {}
+const todosRequestSchema = {};
 
-todosRequestSchema.getTodos = Joi.object({
-  searchQuery: Joi.string()
-})
-
-todosRequestSchema.createTodo = Joi.object({
+todosRequestSchema.addTodo = Joi.object({
   body: Joi.string()
     .min(4)
     .max(100)
     .required()
-})
+});
 
-module.exports = todosRequestSchema
+module.exports = todosRequestSchema;

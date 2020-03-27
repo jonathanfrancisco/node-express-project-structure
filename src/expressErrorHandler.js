@@ -1,6 +1,6 @@
 module.exports = environment => {
   return (err, req, res, next) => {
-    console.error(err)
+    console.error(err);
 
     const formatErrorMessage = (errMessage, errStatus) => {
       if (
@@ -11,20 +11,20 @@ module.exports = environment => {
           error: {
             details: errMessage
           }
-        }
+        };
       }
       return {
         error: {
           message:
-            (!err.status || err.status === 500) && environment === 'production'
+            (!err.status || err.status === 500) && environment !== 'development'
               ? 'Internal Server Error'
               : errMessage
         }
-      }
-    }
+      };
+    };
 
     return res
       .status(err.status || 500)
-      .json(formatErrorMessage(err.message, err.status))
-  }
-}
+      .json(formatErrorMessage(err.message, err.status));
+  };
+};

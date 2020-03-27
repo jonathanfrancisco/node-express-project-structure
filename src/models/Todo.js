@@ -1,23 +1,23 @@
-const uuidv4 = require('uuid/v4')
-const BaseModel = require('./BaseModel')
+const uuidv4 = require('uuid/v4');
+const BaseModel = require('./BaseModel');
 
 class Todo extends BaseModel {
   static get tableName() {
-    return 'todos'
+    return 'todos';
   }
 
   static get idColumn() {
-    return 'id'
+    return 'id';
   }
 
   async $beforeInsert() {
-    this.id = uuidv4()
-    this.createdAt = new Date().toISOString()
+    this.id = uuidv4();
+    this.createdAt = new Date().toISOString();
   }
 
   async $beforeUpdate() {
-    this.updatedAt = new Date().toISOString()
+    this.updatedAt = new Date().toISOString();
   }
 }
 
-module.exports = Todo
+module.exports = Todo;

@@ -1,11 +1,9 @@
-const todosRouter = require('express').Router()
-const catchErrors = require('../../hoc/catchErrors')
-const todosController = require('./todosController')
+const todosRouter = require('express').Router();
+const catchErrors = require('../../hoc/catchErrors');
+const todosController = require('./todosController');
 
-todosRouter.get('/todos', catchErrors(todosController.getTodos))
-todosRouter.get('/todos/:id', catchErrors(todosController.getTodoById))
-todosRouter.post('/todos', catchErrors(todosController.createTodo))
-todosRouter.delete('/todos', catchErrors(todosController.deleteTodos))
-todosRouter.delete('/todos/:id', catchErrors(todosController.deleteTodoById))
+todosRouter.post('/todos', catchErrors(todosController.addTodo));
+todosRouter.get('/todos/:id', catchErrors(todosController.getTodoById));
+todosRouter.get('/todos', catchErrors(todosController.getTodos));
 
-module.exports = todosRouter
+module.exports = todosRouter;
