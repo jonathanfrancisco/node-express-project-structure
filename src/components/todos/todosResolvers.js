@@ -1,29 +1,17 @@
-const { ApolloError, UserInputError } = require('apollo-server-express');
+const { UserInputError } = require('apollo-server-express');
 
 const joiValidator = require('../../utils/joiValidator');
 const todosRequestSchema = require('./todosRequestSchema');
-
-const Todo = require('../../shared/models/Todo');
-
-// import model here from models e.g Todo model
+const todosService = require('./todosService');
 
 const todosResolvers = {
   Query: {
     async getTodoById(parent, args, context, info) {
       const { id } = args;
-
-      const todo = await Todo.query().findById(id);
-      if (!todo) {
-        throw new ApolloError('Todo not found', 'TODO_NOT_FOUND');
-      }
-
-      return {
-        todo
-      };
+      return todosService.getTodoById(id);
     },
     async getTodos(parent, args, context, info) {
-      const todos = await Todo.query();
-      return { todos };
+      return todosService.getTodos();
     }
   },
   Mutation: {
@@ -37,14 +25,7 @@ const todosResolvers = {
         });
       }
 
-      const newTodo = await Todo.query().insert({
-        body: todo.body,
-        isDone: false
-      });
-
-      return {
-        todo: newTodo
-      };
+      return todosService.addTodo(todo);
     }
   }
 };
