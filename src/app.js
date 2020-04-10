@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const httpErrors = require('http-errors');
+require('express-async-errors');
 
 const config = require('./config');
 const expressErrorHandler = require('./expressErrorHandler');
