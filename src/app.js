@@ -7,27 +7,22 @@ const httpErrors = require('http-errors');
 require('express-async-errors');
 
 const config = require('./config');
-const expressErrorHandler = require('./expressErrorHandler');
 const apiRoutes = require('./components');
+const expressErrorHandler = require('./middlewares/expressErrorHandler');
 
 const app = express();
 
-const setupAndStartExpress = async () => {
-  // initial middlewares
-  app.use(helmet());
-  app.use(cors());
-  app.use(bodyParser.json());
-  app.use(compression());
+app.use(helmet());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(compression());
 
-  app.use(apiRoutes);
-  app.use((req, res, next) => {
-    next(new httpErrors.NotFound('route not found'));
-  });
-  app.use(expressErrorHandler(config.nodeEnv));
+app.use(apiRoutes);
+app.use((req, res, next) => {
+  next(new httpErrors.NotFound('route not found'));
+});
+app.use(expressErrorHandler(config.nodeEnv));
 
-  app.listen(config.port || 5000, () => {
-    console.log(`server started listening on ${config.port || 5000}`);
-  });
-};
-
-setupAndStartExpress();
+app.listen(config.port || 5000, () => {
+  console.log(`server started listening on ${config.port || 5000}`);
+});
