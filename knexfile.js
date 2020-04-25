@@ -18,19 +18,4 @@ module.exports = {
       directory: path.join(__dirname, 'src/knex/seeds')
     }
   }
-  // production: {
-  //   client: 'pg',
-  //   connection: {
-  //     host: config.DB_HOST,
-  //     user: config.DB_USER,
-  //     password: config.DB_PASSWORD,
-  //     database: config.DB_NAME
-  //   },
-  //   migrations: {
-  //     directory: path.join(__dirname, '/knex/migrations')
-  //   },
-  //   seeds: {
-  //     directory: path.join(__dirname, '/knex/seeds')
-  //   }
-  // }
 };
