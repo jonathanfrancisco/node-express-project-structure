@@ -1,5 +1,5 @@
 const uuidv4 = require('uuid/v4');
-const BaseModel = require('./BaseModel');
+const BaseModel = require('../../common/BaseModel');
 
 class Todo extends BaseModel {
   static get tableName() {

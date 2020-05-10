@@ -1,6 +1,6 @@
 const httpErrors = require('http-errors');
 
-const Todo = require('../../shared/models/Todo');
+const Todo = require('./todo');
 
 const todosService = {};
 
@@ -28,7 +28,10 @@ todosService.getTodoById = async id => {
 
 todosService.getTodos = async () => {
   const todos = await Todo.query();
-  return { todos };
+
+  return {
+    todos
+  };
 };
 
 module.exports = todosService;
