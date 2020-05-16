@@ -11,27 +11,21 @@ todosService.addTodo = async todoInfo => {
   });
 
   return {
-    todo
+    todo,
+    message: 'Todo added successfully!'
   };
 };
 
 todosService.getTodoById = async id => {
   const todo = await Todo.query().findById(id);
-  if (!todo) {
-    throw httpErrors.NotFound('Todo not found');
-  }
 
-  return {
-    todo
-  };
+  return todo;
 };
 
 todosService.getTodos = async () => {
   const todos = await Todo.query();
 
-  return {
-    todos
-  };
+  return todos;
 };
 
 module.exports = todosService;
