@@ -5,18 +5,18 @@ const cors = require('cors');
 const compression = require('compression');
 
 const config = require('./config');
-const { typeDefs, resolvers } = require('./api/graphql');
+const { typeDefs, resolvers } = require('./schema');
 
 const app = express();
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: config.nodeEnv === 'development',
-  formatError: (error) => {
+  formatError: error => {
     console.log(error);
     const codeErrsNotToShowOnProdStaging = [
       'GRAPHQL_VALIDATION_FAILED',
-      'INTERNAL_SERVER_ERROR',
+      'INTERNAL_SERVER_ERROR'
     ];
     if (config.nodeEnv !== 'development') {
       if (codeErrsNotToShowOnProdStaging.includes(error.extensions.code)) {
@@ -27,7 +27,7 @@ const apolloServer = new ApolloServer({
       }
     }
     return error;
-  },
+  }
 });
 
 // uncomment if using express-session and cookies

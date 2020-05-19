@@ -10,14 +10,13 @@ todosService.getTodoById = async id => {
     throw new ApolloError('Todo not found', 'TODO_NOT_FOUND');
   }
 
-  return {
-    todo
-  };
+  return todo;
 };
 
 todosService.getTodos = async () => {
   const todos = await Todo.query();
-  return { todos };
+
+  return todos;
 };
 
 todosService.addTodo = async todo => {
@@ -27,7 +26,8 @@ todosService.addTodo = async todo => {
   });
 
   return {
-    todo: newTodo
+    todo: newTodo,
+    message: 'Added successfully'
   };
 };
 

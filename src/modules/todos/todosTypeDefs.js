@@ -8,25 +8,22 @@ const todosTypeDefs = gql`
     updatedAt: ISODate
   }
 
-  input AddTodoPayload {
+  input AddTodoRequestDTO {
     body: String!
   }
 
-  type TodoResponse {
+  type AddTodoResponseDTO {
     todo: Todo!
-  }
-
-  type TodosResponse {
-    todos: [Todo!]
+    message: String!
   }
 
   extend type Query {
-    getTodoById(id: ID!): TodoResponse!
-    getTodos: TodosResponse
+    todo(todoId: ID!): Todo!
+    todos: [Todo!]
   }
 
   extend type Mutation {
-    addTodo(todo: AddTodoPayload): TodoResponse
+    addTodo(addTodoRequestDTO: AddTodoRequestDTO): AddTodoResponseDTO
   }
 `;
 
