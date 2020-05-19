@@ -1,22 +1,11 @@
-const httpErrors = require('http-errors');
-const todosRequestSchema = require('./todosRequestSchema');
-const joiValidator = require('../../utils/joiValidator');
 const todosService = require('./todosService');
 
 const todosController = {};
 
 todosController.addTodo = async (req, res) => {
-  const { error, value: validatedRequestBody } = joiValidator(
-    req.body,
-    todosRequestSchema.addTodo
-  );
-  if (error) {
-    throw httpErrors.BadRequest(error.details);
-  }
+  const addTodoDTO = req.body;
 
-  const todo = validatedRequestBody;
-
-  res.status(201).send(await todosService.addTodo(todo));
+  res.status(201).send(await todosService.addTodo(addTodoDTO));
 };
 
 todosController.getTodoById = async (req, res) => {

@@ -4,20 +4,23 @@ const Todo = require('./todo');
 
 const todosService = {};
 
-todosService.addTodo = async todoInfo => {
+todosService.addTodo = async addTodoDTO => {
   const todo = await Todo.query().insert({
-    ...todoInfo,
+    ...addTodoDTO,
     isDone: false
   });
 
   return {
     todo,
-    message: 'Todo added successfully!'
+    message: 'Added successfully'
   };
 };
 
-todosService.getTodoById = async id => {
-  const todo = await Todo.query().findById(id);
+todosService.getTodoById = async todoId => {
+  const todo = await Todo.query().findById(todoId);
+  if (!todo) {
+    throw httpErrors.NotFound(`Todo id of ${todoId} not found.`);
+  }
 
   return todo;
 };
