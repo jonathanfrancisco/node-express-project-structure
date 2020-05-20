@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 const { mergeResolvers } = require('merge-graphql-schemas');
 
-const { scalarsTypeDefs, scalarsResolvers } = require('../shared/scalars');
+const { scalarsTypeDefs, scalarsResolvers } = require('../common/scalars');
 const { todosTypeDefs, todosResolvers } = require('../modules/todos');
 
 const rootTypeDefs = gql`
