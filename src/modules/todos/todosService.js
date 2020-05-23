@@ -1,5 +1,5 @@
 const { ApolloError } = require('apollo-server-express');
-const Todo = require('../../common/models/Todo');
+const Todo = require('./todo');
 
 const todosService = {};
 
