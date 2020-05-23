@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 // centralized-catch all unhandled errors here
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error(err);
   return res.status(err.status || 500).json({
     error:

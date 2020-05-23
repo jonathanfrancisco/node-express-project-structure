@@ -14,6 +14,6 @@ exports.up = knex => {
   });
 };
 
-exports.down = function(knex) {
+exports.down = knex => {
   return knex.schema.dropTableIfExists('todos');
 };
