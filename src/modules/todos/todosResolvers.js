@@ -1,4 +1,4 @@
-const validator = require('../../utils/validator');
+const requestValidator = require('../../utils/requestValidator');
 const todosRequestSchema = require('./todosRequestSchema');
 const todosService = require('./todosService');
 
@@ -13,11 +13,13 @@ const todosResolvers = {
     }
   },
   Mutation: {
-    async addTodo(_, args) {
-      const { addTodoRequestDTO } = args;
-      validator(addTodoRequestDTO, todosRequestSchema.addTodo);
+    async addTodo(_, { addTodoRequestDTO }) {
+      const validAddTodoRequestDTO = requestValidator(
+        addTodoRequestDTO,
+        todosRequestSchema.addTodo
+      );
 
-      return todosService.addTodo(addTodoRequestDTO);
+      return todosService.addTodo(validAddTodoRequestDTO);
     }
   }
 };

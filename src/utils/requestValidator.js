@@ -12,5 +12,6 @@ module.exports = (requestDTO, joiSchema) => {
       validationErrors: error.details
     });
   }
-  requestDTO = value;
+
+  return value;
 };
