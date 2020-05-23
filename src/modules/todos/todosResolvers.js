@@ -4,16 +4,16 @@ const todosService = require('./todosService');
 
 const todosResolvers = {
   Query: {
-    async todo(parent, args, context, info) {
+    async todo(_, args) {
       const { todoId } = args;
       return todosService.getTodoById(todoId);
     },
-    async todos(parent, args, context, info) {
+    async todos() {
       return todosService.getTodos();
     }
   },
   Mutation: {
-    async addTodo(parent, args, context, info) {
+    async addTodo(_, args) {
       const { addTodoRequestDTO } = args;
       validator(addTodoRequestDTO, todosRequestSchema.addTodo);
 
