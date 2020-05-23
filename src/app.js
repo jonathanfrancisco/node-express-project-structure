@@ -20,7 +20,7 @@ app.use(morgan('tiny'));
 app.use(require('./modules/todos'));
 
 app.use((req, res, next) => {
-  next(new httpErrors.NotFound('route not found'));
+  next(httpErrors.NotFound('Route not found'));
 });
 
 // centralized-catch all unhandled errors here

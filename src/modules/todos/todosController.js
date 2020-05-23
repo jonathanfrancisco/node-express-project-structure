@@ -1,4 +1,3 @@
-const httpErrors = require('http-errors');
 const todosService = require('./todosService');
 
 const todosController = {};
@@ -15,11 +14,7 @@ todosController.addTodo = async (req, res) => {
 
 todosController.getTodoById = async (req, res) => {
   const { id } = req.params;
-
   const todo = await todosService.getTodoById(id);
-  if (!todo) {
-    throw httpErrors.NotFound('Todo not found');
-  }
 
   return res.status(200).send(todo);
 };

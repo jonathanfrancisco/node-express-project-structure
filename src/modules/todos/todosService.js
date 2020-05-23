@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const TodoModel = require('./todoModel');
 
 const todosService = {};
@@ -13,6 +14,9 @@ todosService.addTodo = async addTodoDTO => {
 
 todosService.getTodoById = async todoId => {
   const todo = await TodoModel.query().findById(todoId);
+  if (!todo) {
+    throw createError.NotFound(`Todo Id of ${todoId} not found`);
+  }
 
   return todo;
 };

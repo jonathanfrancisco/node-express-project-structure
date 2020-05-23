@@ -24,7 +24,6 @@ const validation = {
 todosRouter.post('/todos', validation['/todos'], todosController.addTodo);
 todosRouter.get('/todos/:id', todosController.getTodoById);
 todosRouter.get('/todos', todosController.getTodos);
-
 todosRouter.use(catchValidationErrors()); // catch joi/celebrate validation errors
 
 module.exports = todosRouter;
