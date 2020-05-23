@@ -1,32 +1,24 @@
-const httpErrors = require('http-errors');
-
-const Todo = require('./todo');
+const TodoModel = require('./todoModel');
 
 const todosService = {};
 
 todosService.addTodo = async addTodoDTO => {
-  const todo = await Todo.query().insert({
+  const todo = await TodoModel.query().insert({
     ...addTodoDTO,
     isDone: false
   });
 
-  return {
-    todo,
-    message: 'Added successfully'
-  };
+  return todo;
 };
 
 todosService.getTodoById = async todoId => {
-  const todo = await Todo.query().findById(todoId);
-  if (!todo) {
-    throw httpErrors.NotFound(`Todo id of ${todoId} not found.`);
-  }
+  const todo = await TodoModel.query().findById(todoId);
 
   return todo;
 };
 
 todosService.getTodos = async () => {
-  const todos = await Todo.query();
+  const todos = await TodoModel.query();
 
   return todos;
 };
