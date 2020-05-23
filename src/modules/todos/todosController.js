@@ -3,8 +3,8 @@ const todosService = require('./todosService');
 const todosController = {};
 
 todosController.addTodo = async (req, res) => {
-  const addTodoDTO = req.body;
-  const todo = await todosService.addTodo(addTodoDTO);
+  const addTodoRequestDto = req.body;
+  const todo = await todosService.addTodo(addTodoRequestDto);
 
   return res.status(201).send({
     todo,

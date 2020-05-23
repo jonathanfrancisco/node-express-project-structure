@@ -3,9 +3,9 @@ const TodoModel = require('./todoModel');
 
 const todosService = {};
 
-todosService.addTodo = async addTodoDTO => {
+todosService.addTodo = async addTodoRequestDto => {
   const todo = await TodoModel.query().insert({
-    ...addTodoDTO,
+    ...addTodoRequestDto,
     isDone: false
   });
 
