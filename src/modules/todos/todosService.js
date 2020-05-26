@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-const Todo = require('./todo');
+const Todo = require('./Todo');
 
 const todosService = {};
 
