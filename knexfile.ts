@@ -1,5 +1,5 @@
-const path = require('path');
-const config = require('./src/config');
+import path from 'path';
+import config from './src/config';
 
 module.exports = {
   development: {
