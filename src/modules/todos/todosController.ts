@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Todo from './Todo';
 import httpErrors from 'http-errors';
+import Todo from './Todo';
 
 export const addTodo = async (
   req: Request,
@@ -31,8 +31,6 @@ export const getTodoById = async (
 ): Promise<Response> => {
   const id: string = req.params.id;
   const todo = await Todo.query().findById(id);
-
-  throw new httpErrors.NotFound('Todo not found');
 
   return res.status(200).send(todo);
 };

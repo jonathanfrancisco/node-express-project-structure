@@ -24,20 +24,19 @@ app.use((req, res, next: NextFunction) => {
   next(new httpErrors.NotFound('Route not found'));
 });
 
-app.use((req: Request, res: Response) => {
-  console.log('HELLO WORLD');
+app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+  if (!err) {
+    next();
+  }
+  console.error(err.status);
+  return res.status(err.status || 500).json({
+    error:
+      (!err.status || err.status === 500) && config.nodeEnv !== 'development'
+        ? 'Internal Server Error'
+        : err.message,
+    status: err.status || 500
+  });
 });
-
-// app.use((err: HttpError, req: Request, res: Response) => {
-//   console.error(err.status);
-//   return res.status(err.status || 500).json({
-//     error:
-//       (!err.status || err.status === 500) && config.nodeEnv !== 'development'
-//         ? 'Internal Server Error'
-//         : err.message,
-//     status: err.status || 500
-//   });
-// });
 
 app.listen(config.port || 5000, () => {
   console.log(`server started listening on ${config.port || 5000}`);
