@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(compression());
 app.use(morgan('tiny'));
 
-app.use(require('./modules/todos'));
+app.use(require('./api'));
 
 app.use((req, res, next) => {
   next(httpErrors.NotFound('Route not found'));
