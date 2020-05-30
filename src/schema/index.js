@@ -1,8 +1,8 @@
 const { gql } = require('apollo-server-express');
 const { mergeResolvers } = require('merge-graphql-schemas');
 
-const { scalarsTypeDefs, scalarsResolvers } = require('../common/scalars');
-const { todosTypeDefs, todosResolvers } = require('../modules/todos');
+const { scalarsTypeDef, scalarsResolver } = require('./scalars');
+const { todosTypeDef, todosResolver } = require('../modules/todos');
 
 const rootTypeDefs = gql`
   type Query {
@@ -13,9 +13,9 @@ const rootTypeDefs = gql`
     _empty: String
   }
 `;
-const typeDefs = [rootTypeDefs, scalarsTypeDefs, todosTypeDefs];
+const typeDefs = [rootTypeDefs, scalarsTypeDef, todosTypeDef];
 
-const resolvers = mergeResolvers([scalarsResolvers, todosResolvers]);
+const resolvers = mergeResolvers([scalarsResolver, todosResolver]);
 
 module.exports = {
   typeDefs,

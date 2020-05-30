@@ -1,7 +1,7 @@
-const todosTypeDefs = require('../todos/todosTypeDefs');
-const todosResolvers = require('../todos/todosResolvers');
+const todosTypeDef = require('../todos/todosTypeDef');
+const todosResolver = require('../todos/todosResolver');
 
 module.exports = {
-  todosTypeDefs,
-  todosResolvers
+  todosTypeDef,
+  todosResolver
 };

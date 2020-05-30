@@ -1,7 +1,7 @@
+const { Model } = require('objection');
 const uuidv4 = require('uuid/v4');
-const BaseModel = require('../../common/models/BaseModel');
 
-class Todo extends BaseModel {
+class Todo extends Model {
   static get tableName() {
     return 'todos';
   }
@@ -12,6 +12,7 @@ class Todo extends BaseModel {
 
   async $beforeInsert() {
     this.id = uuidv4();
+    this.isDone = false;
     this.createdAt = new Date().toISOString();
   }
 

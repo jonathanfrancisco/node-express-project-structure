@@ -1,12 +1,12 @@
 const { gql } = require('apollo-server-express');
 const { GraphQLDateTime } = require('graphql-iso-date');
 
-const scalarsTypeDefs = gql`
+const scalarsTypeDef = gql`
   scalar ISODate
 `;
 
-const scalarsResolvers = {
+const scalarsResolver = {
   ISODate: GraphQLDateTime
 };
 
-module.exports = { scalarsTypeDefs, scalarsResolvers };
+module.exports = { scalarsTypeDef, scalarsResolver };

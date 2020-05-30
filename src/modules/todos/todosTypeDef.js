@@ -1,18 +1,19 @@
 const { gql } = require('apollo-server-express');
 
-const todosTypeDefs = gql`
+const todosTypeDef = gql`
   type Todo {
     id: ID!
     body: String!
+    isDone: Boolean!
     createdAt: ISODate!
     updatedAt: ISODate
   }
 
-  input AddTodoRequestDTO {
+  input AddTodoInput {
     body: String!
   }
 
-  type AddTodoResponseDTO {
+  type AddTodoResponse {
     todo: Todo!
     message: String!
   }
@@ -23,8 +24,8 @@ const todosTypeDefs = gql`
   }
 
   extend type Mutation {
-    addTodo(addTodoRequestDTO: AddTodoRequestDTO): AddTodoResponseDTO
+    addTodo(addTodoInput: AddTodoInput): AddTodoResponse
   }
 `;
 
-module.exports = todosTypeDefs;
+module.exports = todosTypeDef;
