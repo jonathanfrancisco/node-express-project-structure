@@ -5,10 +5,13 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 const morgan = require('morgan');
 const httpErrors = require('http-errors');
+const { Model } = require('objection');
 require('express-async-errors');
 
+const knex = require('./knex');
 const config = require('./config');
 
+Model.knex(knex);
 const app = express();
 
 app.use(helmet());

@@ -3,8 +3,7 @@ const Todo = require('./Todo');
 const addTodo = async (req, res) => {
   const addTodoRequestDto = req.body;
   const todo = await Todo.query().insert({
-    ...addTodoRequestDto,
-    isDone: false
+    ...addTodoRequestDto
   });
 
   return res.status(201).send({
