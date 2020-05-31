@@ -1,11 +1,3 @@
-install packages/dependencies
+NODE EXPRESS JAVASCRIPT BOILERPLATE
 
-```
-    npm install
-```
-
-install development packages/dependencies (eslint and prettier configs)
-
-```
-    npm install --only=dev
-```
+Tech Stack: Express, Javascript,GraphQL, and Knex.js(PostgreSQL) w/ Objection as ORM
