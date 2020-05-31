@@ -5,7 +5,9 @@ import {
   Segments
 } from 'celebrate';
 
-const addTodoRequestSchema = celebrate(
+const todosRequestSchema: { [method: string]: any } = {};
+
+todosRequestSchema.addTodo = celebrate(
   {
     [Segments.BODY]: Joi.object().keys({
       body: Joi.string()
@@ -17,4 +19,4 @@ const addTodoRequestSchema = celebrate(
   { abortEarly: false }
 );
 
-export { addTodoRequestSchema };
+export default todosRequestSchema;
