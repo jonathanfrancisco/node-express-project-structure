@@ -1,3 +1,3 @@
 NODE EXPRESS TYPESCRIPT BOILERPLATE
 
-Tech stack: Express, Typescript, Knex.js(PostgreSQL) w/ Objection as ORM,
+Tech Stack: Express, Typescript, and Knex.js(PostgreSQL) w/ Objection as ORM
