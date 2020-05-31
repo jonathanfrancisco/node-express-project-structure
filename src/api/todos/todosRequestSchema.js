@@ -1,6 +1,8 @@
 const { celebrate, Joi, Segments } = require('celebrate');
 
-const addTodoRequestSchema = celebrate(
+const todosRequestSchema = {};
+
+todosRequestSchema.addTodo = celebrate(
   {
     [Segments.BODY]: Joi.object().keys({
       body: Joi.string()
@@ -12,6 +14,4 @@ const addTodoRequestSchema = celebrate(
   { abortEarly: false }
 );
 
-module.exports = {
-  addTodoRequestSchema
-};
+module.exports = todosRequestSchema;

@@ -1,11 +1,11 @@
 const todosRouter = require('express').Router();
 const { errors: catchValidationErrors } = require('celebrate');
-const { addTodoRequestSchema } = require('./todosRequestSchema');
-const { addTodo, getTodoById, getTodos } = require('./todosController');
+const todosRequestSchema = require('./todosRequestSchema');
+const todosController = require('./todosController');
 
-todosRouter.post('/todos', addTodoRequestSchema, addTodo);
-todosRouter.get('/todos/:id', getTodoById);
-todosRouter.get('/todos', getTodos);
+todosRouter.post('/todos', todosRequestSchema.addTodo, todosController.addTodo);
+todosRouter.get('/todos/:id', todosController.getTodoById);
+todosRouter.get('/todos', todosController.getTodos);
 todosRouter.use(catchValidationErrors()); // catch joi/celebrate validation errors
 
 module.exports = todosRouter;
