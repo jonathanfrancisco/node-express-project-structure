@@ -8,6 +8,8 @@ const httpErrors = require('http-errors');
 const { Model } = require('objection');
 require('express-async-errors');
 
+const todosAPI = require('./api/todos');
+
 const knex = require('./knex');
 const config = require('./config');
 
@@ -20,7 +22,7 @@ app.use(bodyParser.json());
 app.use(compression());
 app.use(morgan('tiny'));
 
-app.use(require('./api'));
+app.use(todosAPI);
 
 app.use((req, res, next) => {
   next(httpErrors.NotFound('Route not found'));
@@ -37,7 +39,7 @@ app.use((err, req, res, next) => {
       (!err.status || err.status === 500) && config.nodeEnv !== 'development'
         ? 'Internal Server Error'
         : err.message,
-    status: err.status || 500
+    statusCode: err.status || 500
   });
 });
 
