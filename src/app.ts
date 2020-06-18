@@ -8,7 +8,8 @@ import httpErrors, { HttpError } from 'http-errors';
 import { Model } from 'objection';
 import knexInstance from './knex';
 import config from './config';
-import api from './api';
+
+import todosAPI from './api/todos';
 
 Model.knex(knexInstance);
 
@@ -19,7 +20,7 @@ app.use(bodyParser.json());
 app.use(compression());
 app.use(morgan('tiny'));
 
-app.use(api);
+app.use(todosAPI);
 
 app.use((req, res, next: NextFunction) => {
   next(new httpErrors.NotFound('Route not found'));
