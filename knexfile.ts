@@ -1,5 +1,5 @@
 import path from 'path';
-import config from './src/config';
+import config from './config';
 
 module.exports = {
   development: {
@@ -12,10 +12,10 @@ module.exports = {
       database: config.database.name
     },
     migrations: {
-      directory: path.join(__dirname, 'src/knex/migrations')
+      directory: path.join(__dirname, 'knex/migrations')
     },
     seeds: {
-      directory: path.join(__dirname, 'src/knex/seeds')
+      directory: path.join(__dirname, 'knex/seeds')
     }
   }
 };
