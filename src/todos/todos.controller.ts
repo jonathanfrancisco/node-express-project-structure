@@ -4,10 +4,13 @@ import {
   HttpStatusCodes
 } from '../../common/types/Http';
 
-import TodosService from './interfaces/TodosService';
-import TodosController from './interfaces/TodosController';
+import { TodosService } from './todos.service';
 
-class TodosControllerImpl implements TodosController {
+export interface TodosController {
+  addTodo(request: HttpRequest): Promise<HttpResponse>;
+}
+
+export class TodosControllerImpl implements TodosController {
   private todosService: TodosService;
 
   constructor(todosService: TodosService) {
@@ -23,5 +26,3 @@ class TodosControllerImpl implements TodosController {
     };
   };
 }
-
-export default TodosControllerImpl;

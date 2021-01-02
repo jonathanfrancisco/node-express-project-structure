@@ -22,7 +22,7 @@ app.use(morgan('tiny'));
 
 app.use(todosAPI);
 app.use((req, res) => {
-  return res.sendStatus(404).send({
+  return res.status(404).send({
     message: 'Route not found'
   });
 });

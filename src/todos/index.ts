@@ -1,12 +1,10 @@
 import { Router } from 'express';
 import catchErrors from '../../common/errors/catchErrors';
 import parseExpressRequest from '../../common/utils/parseExpressRequest';
-
-import TodosControllerImpl from './TodosControllerImpl';
-import TodosServiceImpl from './TodosServiceImpl';
+import { TodosControllerImpl } from './todos.controller';
+import { TodosServiceImpl } from './todos.service';
 
 const todosRouter = Router();
-
 const todosController = new TodosControllerImpl(new TodosServiceImpl());
 
 todosRouter.post('/todos', async (req, res) => {
