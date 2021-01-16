@@ -4,17 +4,13 @@ import {
   HttpStatusCodes
 } from '../../common/types/Http';
 
-import { TodosService } from './todos.service';
+import TodosService from './todos.service';
 
-export interface TodosController {
-  addTodo(request: HttpRequest): Promise<HttpResponse>;
-}
-
-export class TodosControllerImpl implements TodosController {
+export default class TodosController {
   private todosService: TodosService;
 
-  constructor(todosService: TodosService) {
-    this.todosService = todosService;
+  constructor() {
+    this.todosService = new TodosService();
   }
 
   public addTodo = async (request: HttpRequest): Promise<HttpResponse> => {

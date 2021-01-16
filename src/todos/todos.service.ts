@@ -1,10 +1,6 @@
 import Todo from './Todo';
 
-export interface TodosService {
-  addTodo(todo: string): Promise<unknown>;
-}
-
-export class TodosServiceImpl implements TodosService {
+export default class TodosService {
   public async addTodo(todo: string) {
     return {
       data: await Todo.query().insert({
